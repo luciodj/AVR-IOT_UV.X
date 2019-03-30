@@ -38,6 +38,6 @@ void SYSTEM_Initialize(void)
     I2C_0_init();
     ADC_0_init();
     scheduler_timeout_init();
-    CPUINT_init();
     SPI_0_init();
+    CPUINT_init();
 }

@@ -33,13 +33,14 @@ SOFTWARE.
 #include "mcc_generated_files/sensors_handling.h"
 #include "mcc_generated_files/cloud/cloud_service.h"
 #include "mcc_generated_files/debug_print.h"
+#include "mcc_generated_files/include/adc0.h"
 
 //This handles messages published from the MQTT server when subscribed
 void receivedFromCloud(uint8_t *topic, uint8_t *payload)
 {
     char *toggleToken = "\"toggle\":";
     char *subString;
-    
+
     if ((subString = strstr((char*)payload, toggleToken)))
     {
         LED_holdYellowOn( subString[strlen(toggleToken)] == '1' );
@@ -50,31 +51,40 @@ void receivedFromCloud(uint8_t *topic, uint8_t *payload)
     debug_printer(SEVERITY_NONE, LEVEL_NORMAL, "payload: %s", payload);
 }
 
-// This will get called every 1 second only while we have a valid Cloud connection
+#define UV_SENSOR   ADC_MUXPOS_AIN7_gc
+
+// This will get called every CFG_SEND_INTERVAL only while we have a valid Cloud connection
 void sendToCloud(void)
 {
-   static char json[70];
-         
-   // This part runs every CFG_SEND_INTERVAL seconds
-   int rawTemperature = SENSORS_getTempValue();
-   int light = SENSORS_getLightValue();
-   int len = sprintf(json, "{\"Light\":%d,\"Temp\":\"%d.%02d\"}", light,rawTemperature/100,abs(rawTemperature)%100);
+   static char json[100];
 
+   int temp  = SENSORS_getTempValue();
+   int light = SENSORS_getLightValue();
+   int i, uv=0;
+   for(i=0; i<16; i++){
+        uv += ADC_0_get_conversion(UV_SENSOR);
+   }
+   float V = (float)uv / 16 * 3.3 / 1024;
+   // map v to mW/cm2
+   // https://learn.sparkfun.com/tutorials/ml8511-uv-sensor-hookup-guide/all
+   int mWcm2 = (V-0.99) * 150 / 1.8;
+   int len = sprintf(json, "{\"Light\":%d,\"Temp\":%d.%02d,\"UV\":%d.%01d}",
+                        light,temp/100,abs(temp)%100, mWcm2/10, abs(mWcm2)%10);
    if (len >0) {
       CLOUD_publishData((uint8_t*)json, len);
       LED_flashYellow();
    }
 }
- 
- 
+
+
 int main(void)
 {
    application_init();
 
    while (1)
-   { 
-      runScheduler();  
+   {
+      runScheduler();
    }
-   
+
    return 0;
 }

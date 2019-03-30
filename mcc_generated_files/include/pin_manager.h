@@ -209,98 +209,6 @@ static inline bool PD5_get_level()
 	return PORTD_get_pin_level(5);
 }
 /**
- * \brief Set CONF_WIFI_M2M_RESET_PIN pull mode
- *
- * Configure pin to pull up, down or disable pull mode, supported pull
- * modes are defined by device used
- *
- * \param[in] pull_mode Pin pull mode
- */
-static inline void CONF_WIFI_M2M_RESET_PIN_set_pull_mode(const enum port_pull_mode pull_mode)
-{
-	PORTA_set_pin_pull_mode(1, pull_mode);
-}
-
-/**
- * \brief Set CONF_WIFI_M2M_RESET_PIN data direction
- *
- * Select if the pin data direction is input, output or disabled.
- * If disabled state is not possible, this function throws an assert.
- *
- * \param[in] direction PORT_DIR_IN  = Data direction in
- *                      PORT_DIR_OUT = Data direction out
- *                      PORT_DIR_OFF = Disables the pin
- *                      (low power state)
- */
-static inline void CONF_WIFI_M2M_RESET_PIN_set_dir(const enum port_dir dir)
-{
-	PORTA_set_pin_dir(1, dir);
-}
-
-/**
- * \brief Set CONF_WIFI_M2M_RESET_PIN input/sense configuration
- *
- * Enable/disable CONF_WIFI_M2M_RESET_PIN digital input buffer and pin change interrupt,
- * select pin interrupt edge/level sensing mode
- *
- * \param[in] isc PORT_ISC_INTDISABLE_gc    = Interrupt disabled but input buffer enabled
- *                PORT_ISC_BOTHEDGES_gc     = Sense Both Edges
- *                PORT_ISC_RISING_gc        = Sense Rising Edge
- *                PORT_ISC_FALLING_gc       = Sense Falling Edge
- *                PORT_ISC_INPUT_DISABLE_gc = Digital Input Buffer disabled
- *                PORT_ISC_LEVEL_gc         = Sense low Level
- */
-static inline void CONF_WIFI_M2M_RESET_PIN_set_isc(const PORT_ISC_t isc)
-{
-	PORTA_pin_set_isc(1, isc);
-}
-
-/**
- * \brief Set CONF_WIFI_M2M_RESET_PIN inverted mode
- *
- * Enable or disable inverted I/O on a pin
- *
- * \param[in] inverted true  = I/O on CONF_WIFI_M2M_RESET_PIN is inverted
- *                     false = I/O on CONF_WIFI_M2M_RESET_PIN is not inverted
- */
-static inline void CONF_WIFI_M2M_RESET_PIN_set_inverted(const bool inverted)
-{
-	PORTA_pin_set_inverted(1, inverted);
-}
-
-/**
- * \brief Set CONF_WIFI_M2M_RESET_PIN level
- *
- * Sets output level on a pin
- *
- * \param[in] level true  = Pin level set to "high" state
- *                  false = Pin level set to "low" state
- */
-static inline void CONF_WIFI_M2M_RESET_PIN_set_level(const bool level)
-{
-	PORTA_set_pin_level(1, level);
-}
-
-/**
- * \brief Toggle output level on CONF_WIFI_M2M_RESET_PIN
- *
- * Toggle the pin level
- */
-static inline void CONF_WIFI_M2M_RESET_PIN_toggle_level()
-{
-	PORTA_toggle_pin_level(1);
-}
-
-/**
- * \brief Get level on CONF_WIFI_M2M_RESET_PIN
- *
- * Reads the level on a pin
- */
-static inline bool CONF_WIFI_M2M_RESET_PIN_get_level()
-{
-	return PORTA_get_pin_level(1);
-}
-/**
  * \brief Set SW0 pull mode
  *
  * Configure pin to pull up, down or disable pull mode, supported pull
@@ -393,20 +301,20 @@ static inline bool SW0_get_level()
 	return PORTF_get_pin_level(6);
 }
 /**
- * \brief Set UV_EN pull mode
+ * \brief Set UV_CS pull mode
  *
  * Configure pin to pull up, down or disable pull mode, supported pull
  * modes are defined by device used
  *
  * \param[in] pull_mode Pin pull mode
  */
-static inline void UV_EN_set_pull_mode(const enum port_pull_mode pull_mode)
+static inline void UV_CS_set_pull_mode(const enum port_pull_mode pull_mode)
 {
 	PORTC_set_pin_pull_mode(3, pull_mode);
 }
 
 /**
- * \brief Set UV_EN data direction
+ * \brief Set UV_CS data direction
  *
  * Select if the pin data direction is input, output or disabled.
  * If disabled state is not possible, this function throws an assert.
@@ -416,15 +324,15 @@ static inline void UV_EN_set_pull_mode(const enum port_pull_mode pull_mode)
  *                      PORT_DIR_OFF = Disables the pin
  *                      (low power state)
  */
-static inline void UV_EN_set_dir(const enum port_dir dir)
+static inline void UV_CS_set_dir(const enum port_dir dir)
 {
 	PORTC_set_pin_dir(3, dir);
 }
 
 /**
- * \brief Set UV_EN input/sense configuration
+ * \brief Set UV_CS input/sense configuration
  *
- * Enable/disable UV_EN digital input buffer and pin change interrupt,
+ * Enable/disable UV_CS digital input buffer and pin change interrupt,
  * select pin interrupt edge/level sensing mode
  *
  * \param[in] isc PORT_ISC_INTDISABLE_gc    = Interrupt disabled but input buffer enabled
@@ -434,55 +342,147 @@ static inline void UV_EN_set_dir(const enum port_dir dir)
  *                PORT_ISC_INPUT_DISABLE_gc = Digital Input Buffer disabled
  *                PORT_ISC_LEVEL_gc         = Sense low Level
  */
-static inline void UV_EN_set_isc(const PORT_ISC_t isc)
+static inline void UV_CS_set_isc(const PORT_ISC_t isc)
 {
 	PORTC_pin_set_isc(3, isc);
 }
 
 /**
- * \brief Set UV_EN inverted mode
+ * \brief Set UV_CS inverted mode
  *
  * Enable or disable inverted I/O on a pin
  *
- * \param[in] inverted true  = I/O on UV_EN is inverted
- *                     false = I/O on UV_EN is not inverted
+ * \param[in] inverted true  = I/O on UV_CS is inverted
+ *                     false = I/O on UV_CS is not inverted
  */
-static inline void UV_EN_set_inverted(const bool inverted)
+static inline void UV_CS_set_inverted(const bool inverted)
 {
 	PORTC_pin_set_inverted(3, inverted);
 }
 
 /**
- * \brief Set UV_EN level
+ * \brief Set UV_CS level
  *
  * Sets output level on a pin
  *
  * \param[in] level true  = Pin level set to "high" state
  *                  false = Pin level set to "low" state
  */
-static inline void UV_EN_set_level(const bool level)
+static inline void UV_CS_set_level(const bool level)
 {
 	PORTC_set_pin_level(3, level);
 }
 
 /**
- * \brief Toggle output level on UV_EN
+ * \brief Toggle output level on UV_CS
  *
  * Toggle the pin level
  */
-static inline void UV_EN_toggle_level()
+static inline void UV_CS_toggle_level()
 {
 	PORTC_toggle_pin_level(3);
 }
 
 /**
- * \brief Get level on UV_EN
+ * \brief Get level on UV_CS
  *
  * Reads the level on a pin
  */
-static inline bool UV_EN_get_level()
+static inline bool UV_CS_get_level()
 {
 	return PORTC_get_pin_level(3);
+}
+/**
+ * \brief Set CONF_WIFI_M2M_RESET_PIN pull mode
+ *
+ * Configure pin to pull up, down or disable pull mode, supported pull
+ * modes are defined by device used
+ *
+ * \param[in] pull_mode Pin pull mode
+ */
+static inline void CONF_WIFI_M2M_RESET_PIN_set_pull_mode(const enum port_pull_mode pull_mode)
+{
+	PORTA_set_pin_pull_mode(1, pull_mode);
+}
+
+/**
+ * \brief Set CONF_WIFI_M2M_RESET_PIN data direction
+ *
+ * Select if the pin data direction is input, output or disabled.
+ * If disabled state is not possible, this function throws an assert.
+ *
+ * \param[in] direction PORT_DIR_IN  = Data direction in
+ *                      PORT_DIR_OUT = Data direction out
+ *                      PORT_DIR_OFF = Disables the pin
+ *                      (low power state)
+ */
+static inline void CONF_WIFI_M2M_RESET_PIN_set_dir(const enum port_dir dir)
+{
+	PORTA_set_pin_dir(1, dir);
+}
+
+/**
+ * \brief Set CONF_WIFI_M2M_RESET_PIN input/sense configuration
+ *
+ * Enable/disable CONF_WIFI_M2M_RESET_PIN digital input buffer and pin change interrupt,
+ * select pin interrupt edge/level sensing mode
+ *
+ * \param[in] isc PORT_ISC_INTDISABLE_gc    = Interrupt disabled but input buffer enabled
+ *                PORT_ISC_BOTHEDGES_gc     = Sense Both Edges
+ *                PORT_ISC_RISING_gc        = Sense Rising Edge
+ *                PORT_ISC_FALLING_gc       = Sense Falling Edge
+ *                PORT_ISC_INPUT_DISABLE_gc = Digital Input Buffer disabled
+ *                PORT_ISC_LEVEL_gc         = Sense low Level
+ */
+static inline void CONF_WIFI_M2M_RESET_PIN_set_isc(const PORT_ISC_t isc)
+{
+	PORTA_pin_set_isc(1, isc);
+}
+
+/**
+ * \brief Set CONF_WIFI_M2M_RESET_PIN inverted mode
+ *
+ * Enable or disable inverted I/O on a pin
+ *
+ * \param[in] inverted true  = I/O on CONF_WIFI_M2M_RESET_PIN is inverted
+ *                     false = I/O on CONF_WIFI_M2M_RESET_PIN is not inverted
+ */
+static inline void CONF_WIFI_M2M_RESET_PIN_set_inverted(const bool inverted)
+{
+	PORTA_pin_set_inverted(1, inverted);
+}
+
+/**
+ * \brief Set CONF_WIFI_M2M_RESET_PIN level
+ *
+ * Sets output level on a pin
+ *
+ * \param[in] level true  = Pin level set to "high" state
+ *                  false = Pin level set to "low" state
+ */
+static inline void CONF_WIFI_M2M_RESET_PIN_set_level(const bool level)
+{
+	PORTA_set_pin_level(1, level);
+}
+
+/**
+ * \brief Toggle output level on CONF_WIFI_M2M_RESET_PIN
+ *
+ * Toggle the pin level
+ */
+static inline void CONF_WIFI_M2M_RESET_PIN_toggle_level()
+{
+	PORTA_toggle_pin_level(1);
+}
+
+/**
+ * \brief Get level on CONF_WIFI_M2M_RESET_PIN
+ *
+ * Reads the level on a pin
+ */
+static inline bool CONF_WIFI_M2M_RESET_PIN_get_level()
+{
+	return PORTA_get_pin_level(1);
 }
 /**
  * \brief Set PA4 pull mode
@@ -1589,6 +1589,98 @@ static inline bool LED_RED_get_level()
 	return PORTD_get_pin_level(0);
 }
 /**
+ * \brief Set SW1 pull mode
+ *
+ * Configure pin to pull up, down or disable pull mode, supported pull
+ * modes are defined by device used
+ *
+ * \param[in] pull_mode Pin pull mode
+ */
+static inline void SW1_set_pull_mode(const enum port_pull_mode pull_mode)
+{
+	PORTF_set_pin_pull_mode(5, pull_mode);
+}
+
+/**
+ * \brief Set SW1 data direction
+ *
+ * Select if the pin data direction is input, output or disabled.
+ * If disabled state is not possible, this function throws an assert.
+ *
+ * \param[in] direction PORT_DIR_IN  = Data direction in
+ *                      PORT_DIR_OUT = Data direction out
+ *                      PORT_DIR_OFF = Disables the pin
+ *                      (low power state)
+ */
+static inline void SW1_set_dir(const enum port_dir dir)
+{
+	PORTF_set_pin_dir(5, dir);
+}
+
+/**
+ * \brief Set SW1 input/sense configuration
+ *
+ * Enable/disable SW1 digital input buffer and pin change interrupt,
+ * select pin interrupt edge/level sensing mode
+ *
+ * \param[in] isc PORT_ISC_INTDISABLE_gc    = Interrupt disabled but input buffer enabled
+ *                PORT_ISC_BOTHEDGES_gc     = Sense Both Edges
+ *                PORT_ISC_RISING_gc        = Sense Rising Edge
+ *                PORT_ISC_FALLING_gc       = Sense Falling Edge
+ *                PORT_ISC_INPUT_DISABLE_gc = Digital Input Buffer disabled
+ *                PORT_ISC_LEVEL_gc         = Sense low Level
+ */
+static inline void SW1_set_isc(const PORT_ISC_t isc)
+{
+	PORTF_pin_set_isc(5, isc);
+}
+
+/**
+ * \brief Set SW1 inverted mode
+ *
+ * Enable or disable inverted I/O on a pin
+ *
+ * \param[in] inverted true  = I/O on SW1 is inverted
+ *                     false = I/O on SW1 is not inverted
+ */
+static inline void SW1_set_inverted(const bool inverted)
+{
+	PORTF_pin_set_inverted(5, inverted);
+}
+
+/**
+ * \brief Set SW1 level
+ *
+ * Sets output level on a pin
+ *
+ * \param[in] level true  = Pin level set to "high" state
+ *                  false = Pin level set to "low" state
+ */
+static inline void SW1_set_level(const bool level)
+{
+	PORTF_set_pin_level(5, level);
+}
+
+/**
+ * \brief Toggle output level on SW1
+ *
+ * Toggle the pin level
+ */
+static inline void SW1_toggle_level()
+{
+	PORTF_toggle_pin_level(5);
+}
+
+/**
+ * \brief Get level on SW1
+ *
+ * Reads the level on a pin
+ */
+static inline bool SW1_get_level()
+{
+	return PORTF_get_pin_level(5);
+}
+/**
  * \brief Set LED_BLUE pull mode
  *
  * Configure pin to pull up, down or disable pull mode, supported pull
@@ -1681,20 +1773,20 @@ static inline bool LED_BLUE_get_level()
 	return PORTD_get_pin_level(3);
 }
 /**
- * \brief Set SW1 pull mode
+ * \brief Set UV_EN pull mode
  *
  * Configure pin to pull up, down or disable pull mode, supported pull
  * modes are defined by device used
  *
  * \param[in] pull_mode Pin pull mode
  */
-static inline void SW1_set_pull_mode(const enum port_pull_mode pull_mode)
+static inline void UV_EN_set_pull_mode(const enum port_pull_mode pull_mode)
 {
-	PORTF_set_pin_pull_mode(5, pull_mode);
+	PORTA_set_pin_pull_mode(0, pull_mode);
 }
 
 /**
- * \brief Set SW1 data direction
+ * \brief Set UV_EN data direction
  *
  * Select if the pin data direction is input, output or disabled.
  * If disabled state is not possible, this function throws an assert.
@@ -1704,15 +1796,15 @@ static inline void SW1_set_pull_mode(const enum port_pull_mode pull_mode)
  *                      PORT_DIR_OFF = Disables the pin
  *                      (low power state)
  */
-static inline void SW1_set_dir(const enum port_dir dir)
+static inline void UV_EN_set_dir(const enum port_dir dir)
 {
-	PORTF_set_pin_dir(5, dir);
+	PORTA_set_pin_dir(0, dir);
 }
 
 /**
- * \brief Set SW1 input/sense configuration
+ * \brief Set UV_EN input/sense configuration
  *
- * Enable/disable SW1 digital input buffer and pin change interrupt,
+ * Enable/disable UV_EN digital input buffer and pin change interrupt,
  * select pin interrupt edge/level sensing mode
  *
  * \param[in] isc PORT_ISC_INTDISABLE_gc    = Interrupt disabled but input buffer enabled
@@ -1722,55 +1814,55 @@ static inline void SW1_set_dir(const enum port_dir dir)
  *                PORT_ISC_INPUT_DISABLE_gc = Digital Input Buffer disabled
  *                PORT_ISC_LEVEL_gc         = Sense low Level
  */
-static inline void SW1_set_isc(const PORT_ISC_t isc)
+static inline void UV_EN_set_isc(const PORT_ISC_t isc)
 {
-	PORTF_pin_set_isc(5, isc);
+	PORTA_pin_set_isc(0, isc);
 }
 
 /**
- * \brief Set SW1 inverted mode
+ * \brief Set UV_EN inverted mode
  *
  * Enable or disable inverted I/O on a pin
  *
- * \param[in] inverted true  = I/O on SW1 is inverted
- *                     false = I/O on SW1 is not inverted
+ * \param[in] inverted true  = I/O on UV_EN is inverted
+ *                     false = I/O on UV_EN is not inverted
  */
-static inline void SW1_set_inverted(const bool inverted)
+static inline void UV_EN_set_inverted(const bool inverted)
 {
-	PORTF_pin_set_inverted(5, inverted);
+	PORTA_pin_set_inverted(0, inverted);
 }
 
 /**
- * \brief Set SW1 level
+ * \brief Set UV_EN level
  *
  * Sets output level on a pin
  *
  * \param[in] level true  = Pin level set to "high" state
  *                  false = Pin level set to "low" state
  */
-static inline void SW1_set_level(const bool level)
+static inline void UV_EN_set_level(const bool level)
 {
-	PORTF_set_pin_level(5, level);
+	PORTA_set_pin_level(0, level);
 }
 
 /**
- * \brief Toggle output level on SW1
+ * \brief Toggle output level on UV_EN
  *
  * Toggle the pin level
  */
-static inline void SW1_toggle_level()
+static inline void UV_EN_toggle_level()
 {
-	PORTF_toggle_pin_level(5);
+	PORTA_toggle_pin_level(0);
 }
 
 /**
- * \brief Get level on SW1
+ * \brief Get level on UV_EN
  *
  * Reads the level on a pin
  */
-static inline bool SW1_get_level()
+static inline bool UV_EN_get_level()
 {
-	return PORTF_get_pin_level(5);
+	return PORTA_get_pin_level(0);
 }
 /**
  * \brief Set CONF_WIFI_M2M_WAKE_PIN pull mode
